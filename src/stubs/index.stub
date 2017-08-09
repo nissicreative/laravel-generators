@@ -1,0 +1,36 @@
+@extends('admin.layouts.master')
+@push('main_class'){{ 'wide' }}@endpush
+
+@section('page_meta')
+<title>{{ page_title($heading) }}</title>
+@endsection
+
+@section('content')
+
+@include('flash::message')
+
+<div class="card">
+    @include('admin.partials.index-header')
+    <table class="table">
+        <thead>
+            <tr>
+                <th>Actions</th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach(${{collection}} as ${{object}})
+            <tr>
+                <td>
+                    <div class="btn-group">
+                        <a href="{{ route('{{routeName}}.show', ${{object}}) }}" class="btn btn-primary btn-xs"><i class="fa fa-eye"></i>&nbsp;&nbsp;View</a>
+                    </div>
+                </td>
+            </tr>
+            @endforeach
+        </tbody>
+    </table>
+</div>
+
+{{-- Paginator --}}
+<div class="text-center">{{ ${{collection}}->appends(request()->except('page'))->links() }}</div>
+@endsection

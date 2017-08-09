@@ -1,0 +1,39 @@
+@extends(request('view') == 'modal' ? 'admin.layouts.modal' : 'admin.layouts.master')
+
+@push('main_class'){{ 'narrow' }}@endpush
+
+@section('page_meta')
+<title>{{ page_title('Edit {{title}}') }}</title>
+@endsection
+
+@section('content')
+<div class="card">
+	<header>
+		<h3>Edit {{title}}</h3>
+	</header>
+
+	@include('errors.list')
+
+	{!! Form::model(${{object}},[
+		'route'  => ['{{routeName}}.update', ${{object}}],
+		'method' => 'put',
+		'class'  => 'form-horizontal',
+		'files'  => true,
+	]) !!}
+
+	@include('{{routeName}}.form')
+
+	@include('admin.partials.form-actions-horizontal')
+
+	{!! Form::close() !!}
+</div>
+
+{{-- Delete Form --}}
+{!! Form::open([
+	'route'  => ['{{routeName}}.destroy', ${{object}}],
+	'method' => 'delete',
+	'class'  => 'hide',
+	'id'     => 'delete-form'
+]); !!}
+{!! Form::close() !!}
+@endsection

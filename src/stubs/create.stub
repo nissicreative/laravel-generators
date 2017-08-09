@@ -1,0 +1,28 @@
+@extends(request('view') == 'modal' ? 'admin.layouts.modal' : 'admin.layouts.master')
+@push('main_class'){{ 'narrow' }}@endpush
+
+@section('page_meta')
+<title>{{ page_title('Add {{title}}') }}</title>
+@endsection
+
+@section('content')
+<div class="card">
+	<header>
+		<h3>Add {{title}}</h3>
+	</header>
+
+	@include('errors.list')
+
+	{!! Form::model(${{object}},[
+		'route' => '{{routeName}}.store',
+		'class' => 'form-horizontal',
+		'files' => true,
+	]) !!}
+
+	@include('{{routeName}}.form')
+
+	@include('admin.partials.form-actions-horizontal')
+
+	{!! Form::close() !!}
+</div>
+@endsection

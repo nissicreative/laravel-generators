@@ -1,0 +1,26 @@
+@extends(request('view') == 'modal' ? 'admin.layouts.modal' : 'admin.layouts.master')
+@push('main_class'){{ 'narrow' }}@endpush
+
+@section('page_meta')
+<title>{{ page_title('{{title}}') }}</title>
+@endsection
+
+@section('content')
+<div class="card">
+	<header>
+		<h3>{{title}}</h3>
+	</header>
+	<table class="table">
+	@foreach (${{object}}->toArray() as $key => $val)
+		<tr>
+			<th>{{ str_humanize($key) }}</th>
+			<td>{{ $val }}</td>
+		</tr>
+		@endforeach
+	</table>
+	<hr/>
+	<div class="text-center">
+		<a href="{{ route('{{routeName}}.edit', $project) }}" class="btn btn-primary">Edit {{title}}</a>
+	</div>
+</div>
+@endsection

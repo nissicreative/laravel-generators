@@ -1,0 +1,17 @@
+{
+    "name": "nissicreative/laravel-generators",
+    "description": "Generate resource controllers and views",
+    "require": {
+        "illuminate/support": "^5.4"
+    },
+    "license": "MIT",
+    "authors": [{
+        "name": "Michael Folsom",
+        "email": "mike@nissicreative.com"
+    }],
+    "autoload": {
+        "psr-4": {
+            "Nissi\\Generators\\": "src/"
+        }
+    }
+}
