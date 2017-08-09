@@ -13,5 +13,12 @@
         "psr-4": {
             "Nissi\\Generators\\": "src/"
         }
+    },
+    "extra": {
+        "laravel": {
+            "providers": [
+                "Nissi\\Generators\\GeneratorServiceProvider"
+            ]
+        }
     }
 }
