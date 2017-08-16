@@ -3,20 +3,64 @@
 namespace Nissi\Generators\Commands;
 
 use Illuminate\Console\Command;
+use Illuminate\Support\Facades\File;
 use Illuminate\Filesystem\Filesystem;
 
 class GenerateResource extends Command
 {
+    /**
+     * Instance of Filesystem.
+     */
     protected $files;
+
+    /**
+     * The name of the Eloquent model.
+     */
     protected $model;
+
+    /**
+     * The name of the generated controller.
+     */
     protected $controller;
+
+    /**
+     * The 'resource' name: i.e. the identifier in the routes file.
+     */
     protected $resource;
+
+    /**
+     * The variable name for a single object.
+     */
     protected $object;
+
+    /**
+     * The variable name for a collection of objects.
+     */
     protected $collection;
+
+    /**
+     * The base route name for views (i.e. 'admin.users')
+     */
     protected $routeName;
+
+    /**
+     * The "nice name" for the model: i.e. "calendar event"
+     */
     protected $niceName;
+
+    /**
+     * A title-case version of the nice name.
+     */
     protected $title;
+
+    /**
+     * Plural version of the nice name.
+     */
     protected $niceNamePlural;
+
+    /**
+     * Title case version of the plural nice name (for index view).
+     */
     protected $heading;
 
     /**
@@ -24,7 +68,11 @@ class GenerateResource extends Command
      *
      * @var string
      */
-    protected $signature = 'generate:resource {model?} {--f|force} {--i|interactive} {--m|model}';
+    protected $signature = 'generate:resource
+                            {model? : The name of the Eloquent model}
+                            {--f|force : Force-create (overwrite any existing files)}
+                            {--i|interactive : Interactively define options}
+                            {--m|model : Also run `artisan make:model -m`}';
 
     /**
      * The console command description.
@@ -54,13 +102,14 @@ class GenerateResource extends Command
     {
         // Prompt for model if it is not passed in as an argument
         $this->model = $this->argument('model') ?? $this->ask('What is the name of the Eloquent model?');
+        $this->model = ucwords($this->model);
 
         // Default values for all variables
         $this->controller = str_plural($this->model) . 'Controller';
         $this->resource   = kebab_case(str_plural($this->model));
         $this->object     = snake_case($this->model);
         $this->collection = str_plural($this->object);
-        $this->routeName  = "admin.$this->resource";
+        $this->routeName  = 'admin.' . $this->resource;
 
         // Allow "interactive" mode (`-i` or `--interactive`) to override defaults
         if ($this->option('interactive')) {
@@ -77,36 +126,61 @@ class GenerateResource extends Command
         $this->heading        = ucwords($this->niceNamePlural);
 
         // Make a directory first or ensuing file creation will fail.
-        make_directory(resource_path('views/admin/' . $this->resource));
+        $path = resource_path('views/admin/' . $this->resource);
+        File::exists($path) or File::makeDirectory($path, 0755, true, true);
 
         // Controller
-        $controllerPath = $this->generateController();
-        $this->line("<info>Controller Generated:</info> $controllerPath");
+        try {
+            $controllerPath = $this->generateController();
+            $this->line("<info>Controller Generated:</info> $controllerPath");
+        } catch (\Exception $e) {
+            $this->error($e->getMessage());
+        }
 
         // Index View
-        $indexPath = $this->generateIndexView();
-        $this->line("<info>Index View:</info> $indexPath");
+        try {
+            $indexPath = $this->generateIndexView();
+            $this->line("<info>Index View:</info> $indexPath");
+        } catch (\Exception $e) {
+            $this->error($e->getMessage());
+        }
 
         // Create View
-        $createPath = $this->generateCreateView();
-        $this->line("<info>Create View:</info> $createPath");
+        try {
+            $createPath = $this->generateCreateView();
+            $this->line("<info>Create View:</info> $createPath");
+        } catch (\Exception $e) {
+            $this->error($e->getMessage());
+        }
 
         // Edit View
-        $editPath = $this->generateEditView();
-        $this->line("<info>Edit View:</info> $editPath");
+        try {
+            $editPath = $this->generateEditView();
+            $this->line("<info>Edit View:</info> $editPath");
+        } catch (\Exception $e) {
+            $this->error($e->getMessage());
+        }
 
         // Show View
-        $showPath = $this->generateShowView();
-        $this->line("<info>Show View:</info> $showPath");
+        try {
+            $showPath = $this->generateShowView();
+            $this->line("<info>Show View:</info> $showPath");
+        } catch (\Exception $e) {
+            $this->error($e->getMessage());
+        }
 
         // Form
-        $formPath = $this->generateFormView();
-        $this->line("<info>Form View:</info> $formPath");
+        try {
+            $formPath = $this->generateFormView();
+            $this->line("<info>Form View:</info> $formPath");
+        } catch (\Exception $e) {
+            $this->error($e->getMessage());
+        };
 
         if ($this->option('model')) {
             $this->call('make:model', [
                 'name' => $this->model,
-                '-m' => true
+                '-m'   => true,
             ]);
         }
 

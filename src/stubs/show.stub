@@ -20,7 +20,7 @@
 	</table>
 	<hr/>
 	<div class="text-center">
-		<a href="{{ route('{{routeName}}.edit', $project) }}" class="btn btn-primary">Edit {{title}}</a>
+		<a href="{{ route('{{routeName}}.edit', ${{object}}) }}" class="btn btn-primary"><i class="fa fa-edit"></i>&nbsp;&nbsp;Edit {{title}}</a>
 	</div>
 </div>
 @endsection

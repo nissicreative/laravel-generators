@@ -56,17 +56,21 @@ class {{controller}} extends Controller
     {
         $this->validate($request, $this->rules());
 
-        $data = $this->sanitizeInput($request->all());
+        try {
+            $data = $this->sanitizeInput($request->all());
 
-        ${{object}} = {{model}}::create($data);
+            ${{object}} = {{model}}::create($data);
 
-        Flash::success('The {{resource}} was created.');
+            Flash::success('The {{resource}} was created.');
 
-        if ($request->has('view') && $request->view == 'modal') {
-            return view('admin.success');
+            if ($request->has('view') && $request->view == 'modal') {
+                return view('admin.success');
+            }
+
+            return Redirect::route('{{routeName}}.index');
+        } catch (\Exception $e) {
+            return back()->withInput()->withErrors([$e->getMessage()]);
         }
-
-        return Redirect::route('{{routeName}}.index');
     }
 
     /**
@@ -92,17 +96,21 @@ class {{controller}} extends Controller
     {
         $this->validate($request, $this->rules());
 
-        $data = $this->sanitizeInput($request->all());
+        try {
+            $data = $this->sanitizeInput($request->all());
 
-        ${{object}}->update($data);
+            ${{object}}->update($data);
 
-        Flash::success('The {{resource}} has been updated.');
+            Flash::success('The {{resource}} has been updated.');
 
-        if ($request->has('view') && $request->view == 'modal') {
-            return view('admin.success');
+            if ($request->has('view') && $request->view == 'modal') {
+                return view('admin.success');
+            }
+
+            return Redirect::route('{{routeName}}.index');
+        } catch (\Exception $e) {
+            return back()->withInput()->withErrors([$e->getMessage()]);
         }
-
-        return Redirect::route('{{routeName}}.index');
     }
 
     /**
