@@ -2,7 +2,7 @@
     "name": "nissicreative/laravel-generators",
     "description": "Generate resource controllers and views",
     "require": {
-        "illuminate/support": "^5.4"
+        "illuminate/support": "^5.3"
     },
     "license": "MIT",
     "authors": [{
