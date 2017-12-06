@@ -191,7 +191,9 @@ class GenerateResource extends Command
      */
     public function generateController()
     {
-        $controllerStub = $this->files->get(__DIR__ . '/../stubs/controller.stub');
+        $controllerStub = $this->files->exists(resource_path('views/vendor/nissicreative/laravel-generators/stubs/controller.stub'))
+            ? $this->files->get(resource_path('views/vendor/nissicreative/laravel-generators/stubs/controller.stub'))
+            : $this->files->get(__DIR__ . '/../stubs/controller.stub');
 
         $controllerStub = str_replace([
             '{{model}}',
@@ -229,7 +231,9 @@ class GenerateResource extends Command
      */
     public function generateIndexView()
     {
-        $indexStub = $this->files->get(__DIR__ . '/../stubs/index.stub');
+        $indexStub = $this->files->exists(resource_path('views/vendor/nissicreative/laravel-generators/stubs/index.stub'))
+            ? $this->files->get(resource_path('views/vendor/nissicreative/laravel-generators/stubs/index.stub'))
+            : $this->files->get(__DIR__ . '/../stubs/index.stub');
 
         $indexStub = str_replace([
             '{{collection}}',
@@ -257,7 +261,10 @@ class GenerateResource extends Command
      */
     public function generateCreateView()
     {
-        $createStub = $this->files->get(__DIR__ . '/../stubs/create.stub');
+        $createStub = $this->files->exists(resource_path('views/vendor/nissicreative/laravel-generators/stubs/create.stub'))
+            ? $this->files->get(resource_path('views/vendor/nissicreative/laravel-generators/stubs/create.stub'))
+            : $this->files->get(__DIR__ . '/../stubs/create.stub');
+
         $createStub = str_replace([
             '{{title}}',
             '{{object}}',
@@ -284,7 +291,10 @@ class GenerateResource extends Command
      */
     public function generateEditView()
     {
-        $editStub = $this->files->get(__DIR__ . '/../stubs/edit.stub');
+        $editStub = $this->files->exists(resource_path('views/vendor/nissicreative/laravel-generators/stubs/edit.stub'))
+            ? $this->files->get(resource_path('views/vendor/nissicreative/laravel-generators/stubs/edit.stub'))
+            : $this->files->get(__DIR__ . '/../stubs/edit.stub');
+
         $editStub = str_replace([
             '{{title}}',
             '{{object}}',
@@ -311,7 +321,10 @@ class GenerateResource extends Command
      */
     public function generateShowView()
     {
-        $showStub = $this->files->get(__DIR__ . '/../stubs/show.stub');
+        $showStub = $this->files->exists(resource_path('views/vendor/nissicreative/laravel-generators/stubs/show.stub'))
+            ? $this->files->get(resource_path('views/vendor/nissicreative/laravel-generators/stubs/show.stub'))
+            : $this->files->get(__DIR__ . '/../stubs/show.stub');
+
         $showStub = str_replace([
             '{{title}}',
             '{{object}}',
@@ -338,7 +351,9 @@ class GenerateResource extends Command
      */
     public function generateFormView()
     {
-        $formStub = $this->files->get(__DIR__ . '/../stubs/form.stub');
+        $formStub = $this->files->exists(resource_path('views/vendor/nissicreative/laravel-generators/stubs/form.stub'))
+            ? $this->files->get(resource_path('views/vendor/nissicreative/laravel-generators/stubs/form.stub'))
+            : $this->files->get(__DIR__ . '/../stubs/form.stub');
 
         $formPath = resource_path('views/admin/' . $this->resource . '/form.blade.php');
 

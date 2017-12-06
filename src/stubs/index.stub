@@ -33,5 +33,5 @@
 </div>
 
 {{-- Paginator --}}
-<div class="text-center">{{ ${{collection}}->appends(request()->except('page'))->links() }}</div>
+<div class="text-center">{{ ${{collection}}->appends(request()->all())->links() }}</div>
 @endsection

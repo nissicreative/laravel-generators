@@ -13,7 +13,9 @@ class GeneratorsServiceProvider extends ServiceProvider
      */
     public function boot()
     {
-        //
+        $this->publishes([
+            __DIR__ . '/stubs/' => resource_path('views/vendor/nissicreative/laravel-generators/stubs/'),
+        ], 'stubs');
     }
 
     /**
@@ -23,15 +25,15 @@ class GeneratorsServiceProvider extends ServiceProvider
      */
     public function register()
     {
-         $this->app->singleton('command.nissicreative.generate-resource', function ($app) {
+        $this->app->singleton('command.nissicreative.generate-resource', function ($app) {
             return $app['Nissi\Generators\Commands\GenerateResource'];
         });
 
-         $this->app->singleton('command.nissicreative.generate-fillable', function ($app) {
+        $this->app->singleton('command.nissicreative.generate-fillable', function ($app) {
             return $app['Nissi\Generators\Commands\GenerateFillable'];
         });
 
-         $this->app->singleton('command.nissicreative.generate-index-columns', function ($app) {
+        $this->app->singleton('command.nissicreative.generate-index-columns', function ($app) {
             return $app['Nissi\Generators\Commands\GenerateIndexColumns'];
         });
 

@@ -3,16 +3,11 @@
 namespace App\Http\Controllers\Admin;
 
 use App\{{model}};
-use Laracasts\Flash\Flash;
 use Illuminate\Http\Request;
-use Nissi\Traits\SanitizesInput;
 use App\Http\Controllers\Controller;
-use Illuminate\Support\Facades\Redirect;
 
 class {{controller}} extends Controller
 {
-    use SanitizesInput;
-
     /**
      * Display a listing of the {{resources}}.
      */
@@ -24,7 +19,7 @@ class {{controller}} extends Controller
         $query = {{model}}::query();
 
         if ($searchTerms = request('q')) {
-            $query = $query->search($searchTerms);
+            $query->search($searchTerms);
         }
 
         ${{collection}} = $query->paginate(20);
@@ -57,17 +52,21 @@ class {{controller}} extends Controller
         $this->validate($request, $this->rules());
 
         try {
-            $data = $this->sanitizeInput($request->all());
+            $data = $request->all();
 
             ${{object}} = {{model}}::create($data);
 
-            Flash::success('The {{resource}} was created.');
+            flash('The {{resource}} was created.')->success();
 
-            if ($request->has('view') && $request->view == 'modal') {
+            if ($request->view == 'modal') {
                 return view('admin.success');
             }
 
-            return Redirect::route('{{routeName}}.index');
+            if ($request->return_url) {
+                return redirect($request->return_url);
+            }
+
+            return redirect()->route('{{routeName}}.index');
         } catch (\Exception $e) {
             return back()->withInput()->withErrors([$e->getMessage()]);
         }
@@ -97,17 +96,21 @@ class {{controller}} extends Controller
         $this->validate($request, $this->rules());
 
         try {
-            $data = $this->sanitizeInput($request->all());
+            $data = $request->all();
 
             ${{object}}->update($data);
 
-            Flash::success('The {{resource}} has been updated.');
+            flash('The {{resource}} has been updated.')->success();
 
             if ($request->has('view') && $request->view == 'modal') {
                 return view('admin.success');
             }
 
-            return Redirect::route('{{routeName}}.index');
+            if ($request->return_url) {
+                return redirect($request->return_url);
+            }
+
+            return redirect()->route('{{routeName}}.index');
         } catch (\Exception $e) {
             return back()->withInput()->withErrors([$e->getMessage()]);
         }
@@ -120,13 +123,17 @@ class {{controller}} extends Controller
     {
         ${{object}}->delete();
 
-        Flash::success('The {{resource}} has been deleted.');
+        flash('The {{resource}} has been deleted.')->success();
 
         if ($request->has('view') && $request->view == 'modal') {
             return view('admin.success');
         }
 
-        return Redirect::route('{{routeName}}.index');
+        if ($request->return_url) {
+            return redirect($request->return_url);
+        }
+
+        return redirect()->route('{{routeName}}.index');
     }
 
     /**

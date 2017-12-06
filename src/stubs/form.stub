@@ -1,1 +1,2 @@
 <input type="hidden" name="view" value="{{ request('view') }}">
+<input type="hidden" name="return_url" value="{{ request('return_url') }}">
