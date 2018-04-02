@@ -8,24 +8,25 @@
 
 @section('content')
 <div class="card">
-	<header>
+	<div class="card-header">
 		<h3>Edit {{title}}</h3>
-	</header>
+	</div>
+	<div class="card-body">
+		@include('errors.list')
 
-	@include('errors.list')
+		{!! Form::model(${{object}},[
+			'route'  => ['{{routeName}}.update', ${{object}}],
+			'method' => 'put',
+			'class'  => 'form-horizontal',
+			'files'  => true,
+		]) !!}
 
-	{!! Form::model(${{object}},[
-		'route'  => ['{{routeName}}.update', ${{object}}],
-		'method' => 'put',
-		'class'  => 'form-horizontal',
-		'files'  => true,
-	]) !!}
+		@include('{{routeName}}.form')
 
-	@include('{{routeName}}.form')
+		@include('admin.partials.form-actions-horizontal')
 
-	@include('admin.partials.form-actions-horizontal')
-
-	{!! Form::close() !!}
+		{!! Form::close() !!}
+	</div>
 </div>
 
 {{-- Delete Form --}}

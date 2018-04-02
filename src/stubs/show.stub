@@ -7,20 +7,24 @@
 
 @section('content')
 <div class="card">
-	<header>
+	<div class="card-header">
 		<h3>{{title}}</h3>
-	</header>
-	<table class="table">
-	@foreach (${{object}}->toArray() as $key => $val)
-		<tr>
-			<th>{{ str_humanize($key) }}</th>
-			<td>{{ $val }}</td>
-		</tr>
-		@endforeach
-	</table>
-	<hr/>
-	<div class="text-center">
-		<a href="{{ route('{{routeName}}.edit', ${{object}}) }}" class="btn btn-primary"><i class="fa fa-edit"></i>&nbsp;&nbsp;Edit {{title}}</a>
+	</div>
+	<div class="card-body">
+		<table class="table">
+		@foreach (${{object}}->toArray() as $key => $val)
+			<tr>
+				<th>{{ str_humanize($key) }}</th>
+				<td>{{ $val }}</td>
+			</tr>
+			@endforeach
+		</table>
+		<hr/>
+		<div class="text-center">
+			<a href="{{ route('{{routeName}}.edit', ${{object}}) }}" class="btn btn-primary">
+				<i class="fa fa-edit"></i>&nbsp;&nbsp;Edit {{title}}
+			</a>
+		</div>
 	</div>
 </div>
 @endsection
