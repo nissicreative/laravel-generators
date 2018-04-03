@@ -21,13 +21,15 @@
             <tbody>
                 @foreach(${{collection}} as ${{object}})
                 <tr>
-                    <td class="btn-group">
-                        <a href="{{ route('{{routeName}}.show', ${{object}}) }}" class="btn btn-secondary btn-xs">
-                            <i class="fa fa-eye"></i>&nbsp;&nbsp;View
-                        </a>
-                        <a href="{{ route('{{routeName}}.edit', ${{object}}) }}" class="btn btn-primary btn-xs">
-                            <i class="fa fa-edit"></i>&nbsp;&nbsp;Edit
-                        </a>
+                    <td>
+                        <div class="btn-group">
+                            <a href="{{ route('{{routeName}}.show', ${{object}}) }}" class="btn btn-secondary btn-xs">
+                                <i class="fa fa-eye"></i>&nbsp;&nbsp;View
+                            </a>
+                            <a href="{{ route('{{routeName}}.edit', ${{object}}) }}" class="btn btn-primary btn-xs">
+                                <i class="fa fa-edit"></i>&nbsp;&nbsp;Edit
+                            </a>
+                        </div>
                     </td>
                 </tr>
                 @endforeach
