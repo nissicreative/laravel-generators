@@ -18,15 +18,15 @@
                     <th>Actions</th>
                 </tr>
             </thead>
-            <tbody>
+            <tbody class="sortable" data-entity-name="{{collection}}">
                 @foreach(${{collection}} as ${{object}})
-                <tr>
+                <tr data-item-id="{{ ${{object}}->id }}">
                     <td>
                         <div class="btn-group">
-                            <a href="{{ route('{{routeName}}.show', ${{object}}) }}" class="btn btn-secondary btn-xs">
+                            <a class="btn btn-secondary btn-xs" href="{{ route('{{routeName}}.show', ${{object}}) }}">
                                 <i class="fa fa-eye"></i>&nbsp;&nbsp;View
                             </a>
-                            <a href="{{ route('{{routeName}}.edit', ${{object}}) }}" class="btn btn-primary btn-xs">
+                            <a class="btn btn-primary btn-xs" href="{{ route('{{routeName}}.edit', [${{object}}, 'return_url' => url()->full()]) }}">
                                 <i class="fa fa-edit"></i>&nbsp;&nbsp;Edit
                             </a>
                         </div>
