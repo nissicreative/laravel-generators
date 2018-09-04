@@ -15,7 +15,13 @@
 		@foreach (${{object}}->toArray() as $key => $val)
 			<tr>
 				<th>{{ str_humanize($key) }}</th>
-				<td>{{ $val }}</td>
+				<td>
+					@if (is_array($val))
+					{!! array_format($val) !!}
+					@else
+					{{ $val }}
+					@endif
+				</td>
 			</tr>
 			@endforeach
 		</table>

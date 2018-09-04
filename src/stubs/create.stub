@@ -21,7 +21,7 @@
 
 		@include('{{routeName}}.form')
 
-		@include('admin.partials.form-actions-horizontal')
+		@include('admin.partials.form_actions_horizontal')
 
 		{!! Form::close() !!}
 	</div>
