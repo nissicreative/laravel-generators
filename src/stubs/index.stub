@@ -10,7 +10,7 @@
 @include('flash::message')
 
 <div class="card">
-    @include('admin.partials.index-header')
+    @include('admin.partials.index_header')
     <div class="card-body">
         <table class="table">
             <thead>
@@ -24,10 +24,10 @@
                     <td>
                         <div class="btn-group">
                             <a class="btn btn-secondary btn-xs" href="{{ route('{{routeName}}.show', ${{object}}) }}">
-                                <i class="fa fa-eye"></i>&nbsp;&nbsp;View
+                                <i class="far fa-eye"></i>&nbsp;&nbsp;View
                             </a>
                             <a class="btn btn-primary btn-xs" href="{{ route('{{routeName}}.edit', [${{object}}, 'return_url' => url()->full()]) }}">
-                                <i class="fa fa-edit"></i>&nbsp;&nbsp;Edit
+                                <i class="far fa-edit"></i>&nbsp;&nbsp;Edit
                             </a>
                         </div>
                     </td>

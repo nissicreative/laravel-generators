@@ -15,8 +15,7 @@
 
 		{!! Form::model(${{object}},[
 			'route' => '{{routeName}}.store',
-			'class' => 'form-horizontal',
-			'files' => true,
+			'files' => null,
 		]) !!}
 
 		@include('{{routeName}}.form')

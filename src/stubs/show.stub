@@ -28,7 +28,7 @@
 		<hr/>
 		<div class="text-center">
 			<a href="{{ route('{{routeName}}.edit', ${{object}}) }}" class="btn btn-primary">
-				<i class="fa fa-edit"></i>&nbsp;&nbsp;Edit {{title}}
+				<i class="far fa-edit"></i>&nbsp;&nbsp;Edit {{title}}
 			</a>
 		</div>
 	</div>

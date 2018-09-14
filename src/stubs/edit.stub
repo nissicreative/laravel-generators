@@ -18,8 +18,7 @@
 				{!! Form::model(${{object}},[
 					'route'  => ['{{routeName}}.update', ${{object}}],
 					'method' => 'put',
-					'class'  => 'form-horizontal',
-					'files'  => true,
+					'files'  => null,
 				]) !!}
 
 				@include('{{routeName}}.form')
