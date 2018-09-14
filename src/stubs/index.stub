@@ -23,12 +23,8 @@
                 <tr data-item-id="{{ ${{object}}->id }}">
                     <td>
                         <div class="btn-group">
-                            <a class="btn btn-secondary btn-xs" href="{{ route('{{routeName}}.show', ${{object}}) }}">
-                                <i class="far fa-eye"></i>&nbsp;&nbsp;View
-                            </a>
-                            <a class="btn btn-primary btn-xs" href="{{ route('{{routeName}}.edit', [${{object}}, 'return_url' => url()->full()]) }}">
-                                <i class="far fa-edit"></i>&nbsp;&nbsp;Edit
-                            </a>
+                            @viewbtn{{ route('{{routeName}}.show', ${{object}}) }}@endviewbtn
+                            @editbtn{{ route('{{routeName}}.edit', ${{object}}) }}@endeditbtn
                         </div>
                     </td>
                 </tr>
