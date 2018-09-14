@@ -23,8 +23,8 @@
                 <tr data-item-id="{{ ${{object}}->id }}">
                     <td>
                         <div class="btn-group">
-                            @viewbtn{{ route('{{routeName}}.show', ${{object}}) }}@endviewbtn
-                            @editbtn{{ route('{{routeName}}.edit', ${{object}}) }}@endeditbtn
+                            @indexview{{ route('{{routeName}}.show', ${{object}}) }}@endindexview
+                            @indexedit{{ route('{{routeName}}.edit', ${{object}}) }}@endindexedit
                         </div>
                     </td>
                 </tr>
