@@ -2,22 +2,20 @@
 
 namespace App\Http\Controllers\Admin;
 
-use App\{{model}};
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 
-class {{controller}} extends Controller
-{
+class {{controller}} extends Controller {
+
     /**
      * Display a listing of the {{resources}}.
      */
-    public function index()
+    function index()
     {
         $heading = '{{heading}}';
 
         // Start Query Builder
         $query = {{model}}::query();
-
         if ($searchTerms = request('q')) {
             $query->search($searchTerms);
         }
@@ -37,17 +35,16 @@ class {{controller}} extends Controller
     /**
      * Show the form for creating a new {{resource}}.
      */
-    public function create()
+    function create()
     {
         ${{object}} = new {{model}}();
-
         return view('{{routeName}}.create', compact('{{object}}'));
     }
 
     /**
      * Store a newly created {{resource}} in storage.
      */
-    public function store(Request $request)
+    function store(Request $request)
     {
         $this->validate($request, $this->rules());
 
@@ -55,8 +52,11 @@ class {{controller}} extends Controller
             $data = $request->all();
 
             ${{object}} = {{model}}::create($data);
-
             flash('The {{resource}} was created.')->success();
+
+            if ($request->wantsJson()) {
+                return ${{object}};
+            }
 
             if ($request->view == 'modal') {
                 return view('admin.success');
@@ -75,32 +75,38 @@ class {{controller}} extends Controller
     /**
      * Display the specified {{resource}}.
      */
-    public function show({{model}} ${{object}})
-    {
+    function show(
+        {{model}}
+        ${{object}}) {
         return view('{{routeName}}.show', compact('{{object}}'));
     }
 
     /**
      * Show the form for editing the specified {{resource}}.
      */
-    public function edit({{model}} ${{object}})
-    {
+    function edit(
+        {{model}}
+        ${{object}}) {
         return view('{{routeName}}.edit', compact('{{object}}'));
     }
 
     /**
      * Update the specified {{resource}} in storage.
      */
-    public function update(Request $request, {{model}} ${{object}})
-    {
+    function update(Request $request,
+        {{model}}
+        ${{object}}) {
         $this->validate($request, $this->rules());
 
         try {
             $data = $request->all();
 
             ${{object}}->update($data);
-
             flash('The {{resource}} has been updated.')->success();
+
+            if ($request->wantsJson()) {
+                return ${{object}};
+            }
 
             if ($request->has('view') && $request->view == 'modal') {
                 return view('admin.success');
@@ -119,11 +125,14 @@ class {{controller}} extends Controller
     /**
      * Remove the specified {{resource}} from storage.
      */
-    public function destroy(Request $request, {{model}} ${{object}})
-    {
+    function destroy(Request $request, {{model}} ${{object}}) {
         ${{object}}->delete();
 
         flash('The {{resource}} has been deleted.')->success();
+
+        if ($request->wantsJson()) {
+            return ${{object}};
+        }
 
         if ($request->has('view') && $request->view == 'modal') {
             return view('admin.success');
@@ -139,7 +148,7 @@ class {{controller}} extends Controller
     /**
      * Form validation rules for this resource.
      */
-    protected function rules()
+    function rules()
     {
         return [];
     }

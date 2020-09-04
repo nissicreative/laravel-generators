@@ -27,7 +27,7 @@
 		</table>
 		<hr/>
 		<div class="text-center">
-			@editbtn(['resource' => '{{title}}']){{ route('{{routeName}}.edit', ${{object}}) }}@endeditbtn
+			<x-admin.buttons.edit resource="{{title}}" :href="route('{{routeName}}.edit', ${{object}})" />
 		</div>
 	</div>
 </div>

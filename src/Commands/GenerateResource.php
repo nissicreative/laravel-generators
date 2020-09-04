@@ -2,6 +2,7 @@
 
 namespace Nissi\Generators\Commands;
 
+use Illuminate\Support\Str;
 use Illuminate\Console\Command;
 use Illuminate\Support\Facades\File;
 use Illuminate\Filesystem\Filesystem;
@@ -105,25 +106,25 @@ class GenerateResource extends Command
         $this->model = ucwords($this->model);
 
         // Default values for all variables
-        $this->controller = str_plural($this->model) . 'Controller';
-        $this->resource   = kebab_case(str_plural($this->model));
-        $this->object     = snake_case($this->model);
-        $this->collection = str_plural($this->object);
-        $this->routeName  = 'admin.' . $this->resource;
+        $this->controller = Str::plural($this->model) . 'Controller';
+        $this->resource = Str::kebab(Str::plural($this->model));
+        $this->object = Str::snake($this->model);
+        $this->collection = Str::plural($this->object);
+        $this->routeName = 'admin.' . $this->resource;
 
         // Allow "interactive" mode (`-i` or `--interactive`) to override defaults
         if ($this->option('interactive')) {
             $this->controller = $this->ask('What is the name of the controller?', $this->controller);
-            $this->resource   = $this->ask('What is the name of the resource?', $this->resource);
-            $this->object     = $this->ask('What is the object variable name?', $this->object);
+            $this->resource = $this->ask('What is the name of the resource?', $this->resource);
+            $this->object = $this->ask('What is the object variable name?', $this->object);
             $this->collection = $this->ask('What is the collection variable name?', $this->collection);
-            $this->routeName  = $this->ask('What is the base route name?', $this->routeName);
+            $this->routeName = $this->ask('What is the base route name?', $this->routeName);
         }
 
-        $this->niceName       = str_replace('_', ' ', $this->object);
-        $this->niceNamePlural = str_plural($this->niceName);
-        $this->title          = ucwords($this->niceName);
-        $this->heading        = ucwords($this->niceNamePlural);
+        $this->niceName = str_replace('_', ' ', $this->object);
+        $this->niceNamePlural = Str::plural($this->niceName);
+        $this->title = ucwords($this->niceName);
+        $this->heading = ucwords($this->niceNamePlural);
 
         // Make a directory first or ensuing file creation will fail.
         $path = resource_path('views/admin/' . $this->resource);
@@ -180,7 +181,7 @@ class GenerateResource extends Command
         if ($this->option('model')) {
             $this->call('make:model', [
                 'name' => $this->model,
-                '-m'   => true,
+                '-m' => true,
             ]);
         }
 

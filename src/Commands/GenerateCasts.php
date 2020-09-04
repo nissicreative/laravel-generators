@@ -2,6 +2,7 @@
 
 namespace Nissi\Generators\Commands;
 
+use Illuminate\Support\Str;
 use Illuminate\Console\Command;
 use Illuminate\Support\Facades\Schema;
 
@@ -59,13 +60,11 @@ class GenerateCasts extends Command
             ;
 
             $array = $filtered->map(function ($key) {
-                if (ends_with($key, '_at')) {
+                if (Str::endsWith($key, '_at')) {
                     return sprintf("        '%s' => 'datetime',", $key);
                 }
                 return sprintf("        '%s' => 'date',", $key);
             });
-
-            // $string = implode(', ', $quoted);
 
             $this->comment('    /**');
             $this->comment('     * The attributes that should be cast to native types.');

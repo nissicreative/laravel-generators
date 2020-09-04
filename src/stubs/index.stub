@@ -23,8 +23,8 @@
                 <tr data-item-id="{{ ${{object}}->id }}">
                     <td>
                         <div class="btn-group">
-                            @indexview{{ route('{{routeName}}.show', ${{object}}) }}@endindexview
-                            @indexedit{{ route('{{routeName}}.edit', ${{object}}) }}@endindexedit
+                            <x-admin.buttons.index-view :href="route('{{routeName}}.show', ${{object}})" />
+                            <x-admin.buttons.index-edit :href="route('{{routeName}}.edit', ${{object}})" />
                         </div>
                     </td>
                 </tr>
